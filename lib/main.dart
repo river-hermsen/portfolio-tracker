@@ -12,16 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.redAccent[500],
+        primaryColor: Color(0xff19CEC3),
+        accentColor: Color(0xff172121),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -39,6 +31,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+    ),
+    Text(
+      'Index 1: Business',
+    ),
+    Text(
+      'Index 2: School',
+    ),
+    Text(
+      'Index 2: School',
+    ),
+    Text(
+      'Index 2: School',
+    ),
+  ];
 
   void _incrementCounter() {
     setState(() {
@@ -46,59 +57,86 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.red,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.home_48_filled),
-            label: 'Home',
-            backgroundColor: Colors.blue,
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: new Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.white,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.star_28_filled),
-            label: 'Watchlist',
-            backgroundColor: Colors.blue,
+          child: new BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            selectedItemColor: Theme.of(context).primaryColor,
+            unselectedItemColor: Colors.grey,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: [
+              BottomNavigationBarItem(
+                icon: _selectedIndex == 0
+                    ? new Icon(
+                        FluentIcons.home_28_filled,
+                      )
+                    : new Icon(
+                        FluentIcons.home_28_regular,
+                      ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: _selectedIndex == 1
+                    ? new Icon(
+                        FluentIcons.star_28_filled,
+                      )
+                    : new Icon(
+                        FluentIcons.star_28_regular,
+                      ),
+                label: 'Watchlist',
+              ),
+              BottomNavigationBarItem(
+                icon: _selectedIndex == 2
+                    ? new Icon(
+                        FluentIcons.search_28_filled,
+                      )
+                    : new Icon(
+                        FluentIcons.search_28_regular,
+                      ),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: _selectedIndex == 3
+                    ? new Icon(
+                        FluentIcons.data_pie_24_filled,
+                      )
+                    : new Icon(
+                        FluentIcons.data_pie_24_regular,
+                      ),
+                label: 'Portfolio',
+              ),
+              BottomNavigationBarItem(
+                icon: _selectedIndex == 4
+                    ? new Icon(
+                        FluentIcons.alert_32_filled,
+                      )
+                    : new Icon(
+                        FluentIcons.alert_32_regular,
+                      ),
+                label: 'Notifications',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.search_28_filled),
-            label: 'Search',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.data_pie_24_filled),
-            label: 'Search',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.alert_32_filled),
-            label: 'Search',
-            backgroundColor: Colors.blue,
-          ),
-        ],
+        ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
