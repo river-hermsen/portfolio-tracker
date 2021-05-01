@@ -5,6 +5,7 @@ class Stock {
   final String companyName;
   final String primaryExchange;
   final double iexRealtimePrice;
+  final double latestPrice;
   final double change;
   final double changePercent;
 
@@ -13,6 +14,7 @@ class Stock {
     this.companyName,
     this.primaryExchange,
     this.iexRealtimePrice,
+    this.latestPrice,
     this.change,
     this.changePercent,
   });
@@ -23,6 +25,7 @@ class Stock {
       companyName: json['companyName'] as String,
       primaryExchange: json['primaryExchange'] as String,
       iexRealtimePrice: json['iexRealtimePrice'] as double,
+      latestPrice: json['latestPrice'] as double,
       change: json['change'] as double,
       changePercent: json['changePercent'] as double,
     );
