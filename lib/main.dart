@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'home.dart' as Home;
+import 'portfolio.dart' as Portfolio;
 
 void main() {
   runApp(MyApp());
@@ -38,17 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static List<Widget> _widgetOptions = <Widget>[
     Home.Home(),
+    Portfolio.Portfolio(),
     Text(
-      'Index 1: Business',
+      'Index 2: Test',
     ),
     Text(
-      'Index 2: School',
+      'Index 2: Test2',
     ),
     Text(
-      'Index 2: School',
-    ),
-    Text(
-      'Index 2: School',
+      'Index 2: Test3',
     ),
   ];
 
@@ -139,11 +138,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
