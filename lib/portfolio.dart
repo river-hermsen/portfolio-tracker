@@ -41,7 +41,7 @@ class _PortfolioState extends State<Portfolio> {
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Text(
-                      "Hi River!",
+                      "Hi Rivertje!",
                       style: TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.bold,
