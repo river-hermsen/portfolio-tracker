@@ -6,11 +6,6 @@ class Portfolio extends StatefulWidget {
   _PortfolioState createState() => _PortfolioState();
 }
 
-class CustomListItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {}
-}
-
 class _PortfolioState extends State<Portfolio> {
   @override
   Widget build(BuildContext context) {

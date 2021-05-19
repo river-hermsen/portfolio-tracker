@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'home.dart' as Home;
 import 'portfolio.dart' as Portfolio;
+import 'search.dart' as Search;
 
 void main() {
   runApp(MyApp());
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: "Trueno Round",
-        primaryColor: Color(0xff19CEC3),
-        accentColor: Color(0xff172121),
+        primaryColor: Color(0xff33404F),
+        accentColor: Color(0xff00DDA3),
         scaffoldBackgroundColor: Colors.white,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -40,9 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     Home.Home(),
     Portfolio.Portfolio(),
-    Text(
-      'Index 2: Test',
-    ),
+    Search.Search(),
     Text(
       'Index 2: Test2',
     ),

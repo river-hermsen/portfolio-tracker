@@ -24,3 +24,23 @@ List<Stock> parsePopularStocks(String responseBody) {
 
   return parsed.map<Stock>((json) => Stock.fromJson(json)).toList();
 }
+
+Future<List<Stock>> searchStocks() async {
+  final response = await http.get(Uri.https(
+    'alphavantage.co/query?',
+    'function=SYMBOL_SEARCH',
+    {"token": "SIMQCQ1ETHWQMM97", "displayPercent": "true"},
+  ));
+
+  if (response.statusCode == 200) {
+    print("Fetched popular stock");
+    return searchResults(response.body);
+  } else {
+    throw Exception('Failed to load Stocks');
+  }
+}
+
+List<Stock> searchResults(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Stock>((json) => Stock.fromJson(json)).toList();
+}
