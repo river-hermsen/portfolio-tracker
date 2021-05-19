@@ -25,13 +25,14 @@ List<Stock> parsePopularStocks(String responseBody) {
   return parsed.map<Stock>((json) => Stock.fromJson(json)).toList();
 }
 
-Future<List<Stock>> searchStocks() async {
+Future<List<Stock>> searchStocksAPI(String searchQuery) async {
   final response = await http.get(Uri.https(
-    'alphavantage.co/query?',
-    'function=SYMBOL_SEARCH',
-    {"token": "SIMQCQ1ETHWQMM97", "displayPercent": "true"},
+    'alphavantage.co',
+    'query?function=$searchQuery',
+    {"token": "EQ29UXPKD2W8X0DZ"},
   ));
 
+  print(response.body.toString());
   if (response.statusCode == 200) {
     print("Fetched popular stock");
     return searchResults(response.body);

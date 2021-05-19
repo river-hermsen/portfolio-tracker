@@ -29,6 +29,9 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   fluentui_system_icons: ^1.1.120
   http: ^0.13.2
+  carousel_slider: ^3.0.0
+  fl_chart: ^0.36.1
+
 
 dev_dependencies:
   flutter_test:

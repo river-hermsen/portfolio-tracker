@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:invest/classes/Stock.dart';
 import 'api/apiFunctions.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -136,6 +137,15 @@ class CustomListItem extends StatelessWidget {
 class _HomeState extends State<Home> {
   Future<List<Stock>> _popularStocks;
   // final children = <Widget>[];
+  int _currentIndex = 0;
+  List cardList = [Item1(), Item2()];
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
 
   initState() {
     super.initState();
@@ -250,9 +260,9 @@ class _HomeState extends State<Home> {
               boxShadow: [
                 new BoxShadow(
                     color: Colors.black,
-                    offset: Offset(0, 12.0),
-                    blurRadius: 50.0,
-                    spreadRadius: -35),
+                    offset: Offset(0, 10.0),
+                    blurRadius: 60.0,
+                    spreadRadius: -55),
               ],
             ),
           ),
@@ -293,10 +303,173 @@ class _HomeState extends State<Home> {
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
                   }
+                } else {
+                  return Text("Loading");
                 }
               },
             ),
           ),
+          Container(
+              child: Column(
+            children: <Widget>[
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 200.0,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 30),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: false,
+                  pauseAutoPlayOnTouch: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                items: cardList.map((card) {
+                  return Builder(builder: (BuildContext context) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        child: card,
+                      ),
+                    );
+                  });
+                }).toList(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: map<Widget>(cardList, (index, url) {
+                  return Container(
+                    width: 10.0,
+                    height: 10.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentIndex == index
+                          ? Colors.blueAccent
+                          : Colors.grey,
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ))
+        ],
+      ),
+    );
+  }
+}
+
+class Item1 extends StatelessWidget {
+  const Item1({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: 0, right: 0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Container(
+          padding: const EdgeInsets.only(
+            left: 30,
+            right: 30,
+            top: 30,
+            bottom: 25,
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Image(
+                      image: NetworkImage(
+                          "https://storage.googleapis.com/iex/api/logos/AAPL.png"),
+                      height: 42,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      "Apple Inc",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 1, child: Text("")),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      "AAPL · STOCK · US",
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                  ),
+                ],
+              ),
+              // Row(
+              //   children: [
+              //     Expanded(flex: 1, child: Text("")),
+              //     Expanded(
+              //       flex: 4,
+              //       child: Text(
+              //         "AAPL",
+              //         style: TextStyle(color: Colors.black54),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+        ),
+      ),
+      decoration: new BoxDecoration(
+        boxShadow: [
+          new BoxShadow(
+              color: Colors.black,
+              offset: Offset(0, 10.0),
+              blurRadius: 60.0,
+              spreadRadius: -55),
+        ],
+      ),
+    );
+  }
+}
+
+class Item2 extends StatelessWidget {
+  const Item2({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.3, 1],
+            colors: [Color(0xff5f2c82), Color(0xff49a09d)]),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("Data",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold)),
+          Text("Data",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w600)),
         ],
       ),
     );
